@@ -1,0 +1,169 @@
+/* General Body Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f0f5; /* Light pink background */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #e2a0b1; /* Muted rose */
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8em;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Main Content Area */
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Hero Video Section */
+.hero-video {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-video .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Darker overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hero-video:hover .overlay {
+    opacity: 0.8;
+}
+
+/* Gallery Section */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.image-card {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-card:hover {
+    transform: translateY(-5px) scale(1.03);
+}
+
+.image-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease-in-out;
+}
+
+.image-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Message Section */
+.message {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 40px;
+    background-color: #ffe0e6; /* Lighter pink */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-size: 1.8em;
+    font-weight: 500;
+    color: #c25f77; /* Deeper rose color */
+    font-style: italic;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #e2a0b1;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 50px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .hero-video {
+        height: 40vh;
+    }
+
+    .hero-video video {
+        max-width: 100%; /* Apply max-width only on smaller screens */
+    }
+
+    .hero-video .overlay h2 {
+        font-size: 1.8em;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr; /* Stack images vertically */
+    }
+
+    .image-card img {
+        max-width: 100%; /* Apply max-width only on smaller screens */
+    }
+
+    .message {
+        font-size: 1.4em;
+        padding: 30px 15px;
+    }
+
+    footer {
+        padding: 1rem 0;
+    }
+}
