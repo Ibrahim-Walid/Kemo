@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const preloaderContainer = document.querySelector('.preloader-container');
+    if (preloaderContainer) {
+        setTimeout(() => {
+            preloaderContainer.classList.add('hidden');
+        }, 2000); // 2000 milliseconds = 2 seconds
+    }
+
     const sections = document.querySelectorAll('section');
 
     const fadeIn = (element) => {
