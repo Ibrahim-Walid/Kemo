@@ -27,7 +27,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #21006e 0%, #ffc1e3 100%);
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -56,6 +56,249 @@
             font-size: 24px;
             margin-top: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Password Screen */
+        .password-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #21006e 0%, #ffc1e3 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .password-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .password-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ff6b9d;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+            width: 200px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .password-button {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .password-button:hover {
+            background: #e55a8b;
+        }
+
+        .password-text {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .password-display {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ff6b9d;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 20px;
+            text-align: center;
+            width: 150px;
+            height: 50px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            letter-spacing: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        .password-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            max-width: 230px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .clear-button {
+            background: linear-gradient(135deg, #ff6b9d 0%, #e55a8b 100%) !important;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clear-button:hover {
+            background: linear-gradient(135deg, #e55a8b 0%, #d14a7a 100%) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.6);
+        }
+
+        .enter-button {
+            background: linear-gradient(135deg, #9c6ade 0%, #7c4dff 100%) !important;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(156, 106, 222, 0.4);
+            height: 50px;
+            box-sizing: border-box;
+            width: 60px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .enter-button:hover {
+            background: linear-gradient(135deg, #7c4dff 0%, #651fff 100%) !important;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(156, 106, 222, 0.6);
+        }
+
+        .enter-button:active {
+            transform: scale(0.95);
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .keypad-button.zero {
+            grid-column: 2;
+        }
+
+        .keypad-button {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .keypad-button:hover {
+            background: #e55a8b;
+            transform: scale(1.05);
+        }
+
+        .keypad-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Wrong Password Popup */
+        .wrong-password-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10002;
+        }
+
+        .wrong-password-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
+            width: 90%;
+        }
+
+        .wrong-password-emoji {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .wrong-password-text {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+        }
+
+        .wrong-password-close {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .wrong-password-close:hover {
+            background: #e55a8b;
+        }
+
+        /* Hide default input on mobile */
+        @media (max-width: 768px) {
+            .password-input {
+                display: none;
+            }
+        }
+
+        /* Show keypad only on mobile */
+        @media (min-width: 769px) {
+            .keypad {
+                display: none;
+            }
+            .password-display {
+                display: none;
+            }
+            .password-row {
+                display: none;
+            }
+            .password-input {
+                display: block !important;
+            }
         }
 
         /* Floating elements */
@@ -512,6 +755,28 @@
             box-shadow: 0 8px 25px rgba(212, 20, 90, 0.6);
         }
 
+        /* Birthday Photo */
+        .birthday-photo {
+            margin-top: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 3px solid #ff6b9d;
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 2s ease-out;
+        }
+
+        .birthday-photo.animate .birthday-image {
+            clip-path: inset(0 0 0 0);
+        }
+
         /* Love Counter Section */
         .counter-section {
             padding: clamp(30px, 8vh, 60px) 20px;
@@ -796,8 +1061,42 @@
     </style>
 </head>
 <body>
+    <!-- Password Screen -->
+    <div class="password-container" id="passwordContainer">
+        <div class="password-text">Enter Password</div>
+        <div class="password-row">
+            <div class="password-display" id="passwordDisplay"></div>
+            <button class="enter-button" onclick="checkPassword()">Enter</button>
+        </div>
+        <input type="password" class="password-input" id="passwordInput" placeholder="Password" style="display: none;">
+        
+        <div class="keypad">
+            <button class="keypad-button" onclick="addDigit('1')">1</button>
+            <button class="keypad-button" onclick="addDigit('2')">2</button>
+            <button class="keypad-button" onclick="addDigit('3')">3</button>
+            <button class="keypad-button" onclick="addDigit('4')">4</button>
+            <button class="keypad-button" onclick="addDigit('5')">5</button>
+            <button class="keypad-button" onclick="addDigit('6')">6</button>
+            <button class="keypad-button" onclick="addDigit('7')">7</button>
+            <button class="keypad-button" onclick="addDigit('8')">8</button>
+            <button class="keypad-button" onclick="addDigit('9')">9</button>
+            <button class="keypad-button zero" onclick="addDigit('0')">0</button>
+        </div>
+        
+        <button class="clear-button" onclick="clearPassword()">Clear</button>
+    </div>
+
+    <!-- Wrong Password Popup -->
+    <div class="wrong-password-popup" id="wrongPasswordPopup">
+        <div class="wrong-password-content">
+            <div class="wrong-password-emoji">😢</div>
+            <div class="wrong-password-text">I'm sad</div>
+            <button class="wrong-password-close" onclick="closeWrongPasswordPopup()">Try Again</button>
+        </div>
+    </div>
+
     <!-- Preloader -->
-    <div class="preloader-container">
+    <div class="preloader-container" id="preloaderContainer">
         <div class="preloader-heart">💕</div>
         <div class="preloader-text">Loading Love...</div>
     </div>
@@ -865,12 +1164,19 @@
         <section class="quiz-section">
             <h2>HAPPY<br>BIRTHDAY</h2>
             <div class="quiz-container">
-                <div class="quiz-question" id="quizQuestion">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, lorem ipsum dolor sit amet.</div>
+                <div class="quiz-question" id="quizQuestion" data-text="My love,
+Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't just a date, it's a reminder of how lucky I am to have you. I wish you a year full of joy, peace, and success, and I hope I can always be a reason for your smile, just as you are the reason for my happiness. I love you more than you can imagine." style="line-height: 0.8cm; text-align: justify;"></div>
+                <div class="birthday-signature" data-text="Happy Birthday my sweet heart 🫶🏻🎂" style="text-align: center; font-size: larger; text-decoration:double; font-weight: bold;"></div>
+                
+                <!-- Birthday Photo with fade-in animation -->
+                <div class="birthday-photo">
+                    <img src="./eyes.jpeg" alt="Birthday Photo" class="birthday-image">
+                </div>
             </div>
         </section>
 
         <!-- Photo gallery -->
-        <section class="gallery">
+        <!-- <section class="gallery">
             <div class="photo-card">
                 <img src="./1.jpg" alt="Photo 1" class="photo-placeholder">
                 <div class="photo-caption">Our first adventure</div>
@@ -895,7 +1201,7 @@
                 <img src="./1.jpg" alt="Photo 6" class="photo-placeholder">
                 <div class="photo-caption">My heart is yours</div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Love Counter -->
         <section class="counter-section">
@@ -941,12 +1247,89 @@
     </div>
 
     <script>
+        // Password variables
+        let currentPassword = '';
+        let showPassword = false;
+
+        // Password keypad functions
+        function addDigit(digit) {
+            if (currentPassword.length < 6) {
+                currentPassword += digit;
+                updatePasswordDisplay();
+            }
+        }
+
+        function clearPassword() {
+            currentPassword = '';
+            updatePasswordDisplay();
+        }
+
+        function closeWrongPasswordPopup() {
+            document.getElementById('wrongPasswordPopup').style.display = 'none';
+        }
+
+        function updatePasswordDisplay() {
+            const display = document.getElementById('passwordDisplay');
+            const input = document.getElementById('passwordInput');
+            
+            // Update display for mobile - show dots
+            display.textContent = '●'.repeat(currentPassword.length);
+            
+            // Sync hidden input for desktop
+            input.value = currentPassword;
+        }
+
+        // Password check
+        function checkPassword() {
+            if (currentPassword === '111111') {
+                document.getElementById('passwordContainer').classList.add('hidden');
+                document.getElementById('preloaderContainer').style.display = 'flex';
+                startPreloader();
+            } else {
+                document.getElementById('wrongPasswordPopup').style.display = 'flex';
+                clearPassword();
+            }
+        }
+
+        // Allow Enter key to submit password (for desktop)
+        document.getElementById('passwordInput').addEventListener('input', function(e) {
+            currentPassword = e.target.value;
+            updatePasswordDisplay();
+        });
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Initialize password display
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePasswordDisplay();
+        });
+
         // Preloader
-        const preloaderContainer = document.querySelector('.preloader-container');
-        if (preloaderContainer) {
-            setTimeout(() => {
-                preloaderContainer.classList.add('hidden');
-            }, 2000);
+        function startPreloader() {
+            const preloaderContainer = document.getElementById('preloaderContainer');
+            if (preloaderContainer) {
+                setTimeout(() => {
+                    preloaderContainer.classList.add('hidden');
+                    // Start music after preloader finishes
+                    startMusic();
+                }, 2000);
+            }
+        }
+
+        // Music control
+        function startMusic() {
+            music.play().then(() => {
+                isPlaying = true;
+                musicBtn.textContent = '🔊';
+            }).catch(() => {
+                // If autoplay is blocked, show muted icon
+                isPlaying = false;
+                musicBtn.textContent = '🔇';
+            });
         }
 
         // Fade in sections
@@ -979,22 +1362,26 @@
             observer.observe(section);
         });
 
+        // Birthday photo animation
+        const birthdayPhoto = document.querySelector('.birthday-photo');
+        if (birthdayPhoto) {
+            const birthdayObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            birthdayPhoto.classList.add('animate');
+                        }, 500); // 500ms delay
+                        birthdayObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            birthdayObserver.observe(birthdayPhoto);
+        }
+
         // Music control - DEFAULT ON
         const music = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
         let isPlaying = false;
-
-        // Auto-play music on load
-        setTimeout(() => {
-            music.play().then(() => {
-                isPlaying = true;
-                musicBtn.textContent = '🔊';
-            }).catch(() => {
-                // If autoplay is blocked, show muted icon
-                isPlaying = false;
-                musicBtn.textContent = '🔇';
-            });
-        }, 2500); // Start after preloader
 
         musicBtn.addEventListener('click', () => {
             if (isPlaying) {
@@ -1193,10 +1580,15 @@
         // Typewriter effect for message
         function typeWriter(element, text, speed, callback) {
             let i = 0;
-            element.textContent = '';
+            element.innerHTML = '';
             function type() {
                 if (i < text.length) {
-                    element.textContent += text.charAt(i);
+                    const char = text.charAt(i);
+                    if (char === '\n') {
+                        element.innerHTML += '<br>';
+                    } else {
+                        element.innerHTML += char;
+                    }
                     i++;
                     setTimeout(type, speed);
                 } else {
@@ -1230,6 +1622,35 @@
         const messageSection = document.querySelector('.message-section');
         if (messageSection) {
             messageObserver.observe(messageSection);
+        }
+
+        // Start typewriter for birthday message when quiz section is visible
+        const quizObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const birthdayMessage = entry.target.querySelector('.quiz-question');
+                    const birthdaySignature = entry.target.querySelector('.birthday-signature');
+                    
+                    if (birthdayMessage) {
+                        const messageText = birthdayMessage.getAttribute('data-text');
+                        typeWriter(birthdayMessage, messageText, 50, () => {
+                            // After main message, type the signature
+                            if (birthdaySignature) {
+                                setTimeout(() => {
+                                    const signatureText = birthdaySignature.getAttribute('data-text');
+                                    typeWriter(birthdaySignature, signatureText, 100);
+                                }, 500);
+                            }
+                        });
+                    }
+                    quizObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const quizSection = document.querySelector('.quiz-section');
+        if (quizSection) {
+            quizObserver.observe(quizSection);
         }
     </script>
 </body>
