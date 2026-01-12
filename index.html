@@ -823,6 +823,61 @@
             line-height: 1;
         }
 
+        /* Photo with Neon Cake Section */
+        .photo-neon-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .photo-with-neon {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .photo-with-neon img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Neon doodle */
+        .neon-cake {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 110px;
+            height: auto;
+            pointer-events: none;
+            animation: cake-pulse 2s infinite ease-in-out;
+        }
+
+        .neon-cake path,
+        .neon-cake circle {
+            fill: none;
+            stroke: #ff4fd8;
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+
+            /* neon glow */
+            filter:
+                drop-shadow(0 0 3px #ff4fd8)
+                drop-shadow(0 0 10px #ff4fd8)
+                drop-shadow(0 0 20px #ff4fd8);
+        }
+
+        @keyframes cake-pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
         /* Love Counter Section */
         .counter-section {
             padding: clamp(30px, 8vh, 60px) 20px;
@@ -1226,6 +1281,34 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             <div class="malak-birthday-container">
                 <div class="malak-text">NOURHANTY</div>
                 <div class="birthday-text">Birthday</div>
+            </div>
+        </section>
+
+        <!-- Photo with Neon Cake Section -->
+        <section class="photo-neon-section">
+            <div class="photo-with-neon">
+                <img src="./below.jpeg" alt="Special Photo">
+
+                <!-- Neon birthday cake doodle -->
+                <svg class="neon-cake" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+                    <!-- candle -->
+                    <path d="M110 20 L110 45" />
+                    <path d="M108 15 Q110 10 112 15" />
+
+                    <!-- bow -->
+                    <path d="M90 55 Q75 45 70 60 Q80 75 95 65" />
+                    <path d="M130 55 Q145 45 150 60 Q140 75 125 65" />
+                    <circle cx="110" cy="60" r="4" />
+
+                    <!-- top cake -->
+                    <path d="M75 80 Q110 70 145 80 L145 105 Q110 115 75 105 Z" />
+
+                    <!-- bottom cake -->
+                    <path d="M60 115 Q110 105 160 115 L160 155 Q110 165 60 155 Z" />
+
+                    <!-- base line -->
+                    <path d="M55 155 Q110 165 165 155" />
+                </svg>
             </div>
         </section>
 
