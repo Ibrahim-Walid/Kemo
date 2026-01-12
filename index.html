@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Love For You</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Pacifico&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -768,13 +772,55 @@
             height: auto;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 3px solid #ff6b9d;
+            border: 3px solid #ffffff;
             clip-path: inset(0 100% 0 0);
             transition: clip-path 2s ease-out;
         }
 
         .birthday-photo.animate .birthday-image {
             clip-path: inset(0 0 0 0);
+        }
+
+        /* MALAK Birthday Section */
+        .malak-birthday-section {
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .malak-birthday-container {
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        /* MALAK text */
+        .malak-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(80px, 16vw, 160px);
+            letter-spacing: 5px;
+            color: transparent;
+            -webkit-text-stroke: 2px #e8f0f6;
+            margin: 0;
+            line-height: 1;
+        }
+
+        /* Birthday neon text */
+        .birthday-text {
+            position: absolute;
+            right: clamp(-10px, -2vw, -20px);
+            bottom: clamp(-30px, 3vw, -45px);
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(60px, 12vw, 120px);
+            color: #ff4fd8;
+            /* Neon glow */
+            text-shadow:
+                0 0 5px #ff4fd8,
+                0 0 15px #ff4fd8,
+                0 0 30px #ff4fd8,
+                0 0 60px #ff4fd8;
+            margin: 0;
+            line-height: 1;
         }
 
         /* Love Counter Section */
@@ -1175,6 +1221,14 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             </div>
         </section>
 
+        <!-- MALAK Birthday Section -->
+        <section class="malak-birthday-section">
+            <div class="malak-birthday-container">
+                <div class="malak-text">NOURHANTY</div>
+                <div class="birthday-text">Birthday</div>
+            </div>
+        </section>
+
         <!-- Photo gallery -->
         <!-- <section class="gallery">
             <div class="photo-card">
@@ -1281,7 +1335,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
 
         // Password check
         function checkPassword() {
-            if (currentPassword === '111111') {
+            if (currentPassword === '2012') {
                 document.getElementById('passwordContainer').classList.add('hidden');
                 document.getElementById('preloaderContainer').style.display = 'flex';
                 startPreloader();
