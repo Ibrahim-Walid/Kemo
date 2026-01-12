@@ -968,12 +968,22 @@
             top: 460px;
         }
 
-        /* balloons sticker */
+        /* balloons sticker (now a photo) */
         .balloons {
             position: absolute;
             right: 10px;
-            top: 270px;
-            font-size: 40px;
+            top: 200px;
+            width: 80px;
+            height: auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .balloons img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* subtle floating effect */
@@ -1430,8 +1440,10 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
                     <img src="./1-3.jpeg" alt="">
                 </div>
 
-                <!-- Balloons emoji -->
-                <div class="balloons">🎈🎈🎈</div>
+                <!-- Photo instead of balloons -->
+                <div class="balloons">
+                    <img src="./ballons.png" alt="Photo">
+                </div>
 
                 <!-- Gift emojis in diamond pattern -->
                 <div class="gift gift-top">🎁</div>
