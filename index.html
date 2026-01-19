@@ -1306,6 +1306,43 @@
     z-index: 1;
 }
 
+/* Heart emoji in the center of the envelope */
+.envelope-heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;                   /* big heart – adjust as needed */
+    z-index: 5;                        /* above body, below flap */
+    color: #ff6b9d;                    /* matches your theme */
+    text-shadow: 0 0 15px rgba(255, 107, 157, 0.7);
+    pointer-events: none;              /* doesn't block clicks */
+    opacity: 1;
+    transition: all 0.8s ease;
+    z-index: 100;
+    border: #2d1a0f;
+    border-width: 20px;
+border-image: linear-gradient(135deg, #ff6b9d 0%, #d4145a 100%) 1;
+filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.8)) drop-shadow(0 0 20px rgba(212, 20, 90, 0.5));
+animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infinite;
+}
+
+/* Optional: subtle pulse when envelope is closed */
+.envelope:not(.opened) .envelope-heart {
+    animation: gentlePulse 3s infinite ease-in-out;
+}
+
+@keyframes gentlePulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50%      { transform: translate(-50%, -50%) scale(1.12); }
+}
+
+/* When envelope opens → heart fades out slightly */
+.envelope.opened .envelope-heart {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.3);
+}
+
 .envelope-flap {
     position: absolute;
     top: 0;
@@ -1680,14 +1717,17 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
 <section class="message-section">
     <div class="envelope-container" id="envelopeContainer">
         <div class="envelope" id="envelope">
-            <div class="envelope-body"></div>
-            <div class="envelope-flap"></div>
-            
-            <!-- The sliding paper (only visible during animation) -->
-            <div class="letter-paper" id="letterPaper">
-                <div class="letter-content-preview"></div> <!-- optional subtle preview -->
-            </div>
-        </div>
+    <div class="envelope-body"></div>
+    <div class="envelope-flap"></div>
+    
+    <!-- Big heart in the center -->
+    <div class="envelope-heart">💖</div>
+
+    <!-- Keep this if you still have it (but it's hidden) -->
+    <div class="letter-paper" id="letterPaper">
+        <div class="letter-content-preview"></div>
+    </div>
+</div>
     </div>
     
     <div class="tap-hint">✨ Tap the envelope to open your letter ✨</div>
@@ -2114,7 +2154,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             quizObserver.observe(quizSection);
         }
 
-        // Interactive Envelope + Pop-up Letter
+        // Interactive Envelope + Pop-up Letter (NO typewriter)
 const envelopeContainer = document.getElementById('envelopeContainer');
 const envelope = document.getElementById('envelope');
 const letterPopup = document.getElementById('letterPopup');
@@ -2122,77 +2162,55 @@ const letterContent = document.getElementById('letterContent');
 const tapHint = document.querySelector('.tap-hint');
 let isEnvelopeOpened = false;
 
-const letterParagraphs = [
-    "I want to tell you about some words in my heart to you..💜.",
-    "I want to tell you that I love you deeply and I will forever be there for you,because i do care about you and I really love you from my heart..I hope you know that.🫶🏻",
-    "Remember you have a place in my heart no one else could ever have,I love you today and tomorrow and forever,my be i don’t see you everyday but I love you everyday💕",
-    "every morning I wake up my frist though is always you and your massage.🤍",
-    "I love your eyes,your smile,your voice..,i love everything about you 💓",
-    "I won’t find someone like you and I won’t find even if I search all over the world 🌎 you are always there best 💗..,so I really hope I can be a better person for you ✨.",
-    "I promise i will always care about you,i will always but you in my eyes and make you feel safe with me ,I promise to be next to you all the time ❤️",
-    "I promise to keep do my best to make you feel loved and happy as you deserve.😘",
-    "I will never get tired of loving you,you mean everything to me 🩷",
-    "I promise I will always love you forever ♾️❤️.",
-    "I am the luckiest man ever to have you in my life 🥹❤️❤️",
-    "My heart belongs to you Nourhanty💗"
-];
-
-function typeWriter(element, text, speed = 48, callback) {
-    let i = 0;
-    element.innerHTML = '';
-    function type() {
-        if (i < text.length) {
-            let char = text.charAt(i);
-            element.innerHTML += (char === '\n') ? '<br>' : char;
-            i++;
-            setTimeout(type, speed + Math.random() * 24 - 12);
-        } else if (callback) {
-            callback();
-        }
-    }
-    type();
-}
+// All paragraphs combined into one clean message
+const fullLetterMessage = `
+    I want to tell you about some words in my heart to you.. 💜<br><br>
+    I want to tell you that I love you deeply and I will forever be there for you, because I do care about you and I really love you from my heart.. I hope you know that. 🫶🏻<br><br>
+    Remember you have a place in my heart no one else could ever have, I love you today and tomorrow and forever, maybe I don’t see you everyday but I love you everyday 💕<br><br>
+    Every morning I wake up my first thought is always you and your message. 🤍<br><br>
+    I love your eyes, your smile, your voice.., I love everything about you 💓<br><br>
+    I won’t find someone like you and I won’t find even if I search all over the world 🌎 you are always there best 💗.., so I really hope I can be a better person for you ✨.<br><br>
+    I promise I will always care about you, I will always put you in my eyes and make you feel safe with me, I promise to be next to you all the time ❤️<br><br>
+    I promise to keep do my best to make you feel loved and happy as you deserve. 😘<br><br>
+    I will never get tired of loving you, you mean everything to me 🩷<br><br>
+    I promise I will always love you forever ♾️❤️.<br><br>
+    I am the luckiest man ever to have you in my life 🥹❤️❤️<br><br>
+    My heart belongs to you Nourhanty 💗
+`;
 
 if (envelopeContainer) {
     envelopeContainer.addEventListener('click', () => {
         if (isEnvelopeOpened) return;
         isEnvelopeOpened = true;
-        
+
+        // Open flap
         envelope.classList.add('opened');
-        
+
+        // Show popup after flap animation
         setTimeout(() => {
             letterPopup.classList.add('active');
 
-            let idx = 0;
-            function typeNext() {
-                if (idx >= letterParagraphs.length) return;
-                const p = document.createElement('p');
-                p.style.margin = '0 0 1.3em 0';
-                letterContent.appendChild(p);
-
-                typeWriter(p, letterParagraphs[idx], 48, () => {
-                    idx++;
-                    setTimeout(typeNext, idx === letterParagraphs.length - 1 ? 1200 : 1600);
-                });
-            }
-            typeNext();
-        }, 1600);
+            // Instantly show full message (no typing)
+            letterContent.innerHTML = fullLetterMessage;
+        }, 1600); // matches flap opening time
     });
 }
 
 function closeLetterPopup() {
     letterPopup.classList.remove('active');
-    
+
     // Reset envelope so it can be opened again
     setTimeout(() => {
         envelope.classList.remove('opened');
         isEnvelopeOpened = false;
-        letterContent.innerHTML = '';           // clear text for fresh typing next time
-        tapHint.textContent = "✨ Tap the envelope to open your letter ✨";
+        letterContent.innerHTML = ''; // clear for next open
+        if (tapHint) {
+            tapHint.textContent = "✨ Tap the envelope to open your letter ✨";
+        }
     }, 700);
 }
 
-// Close when clicking outside the popup content
+// Close when clicking outside
 letterPopup.addEventListener('click', (e) => {
     if (e.target === letterPopup) {
         closeLetterPopup();
