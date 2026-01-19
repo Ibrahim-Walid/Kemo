@@ -1274,21 +1274,165 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .quiz-section, .counter-section {
-                margin: 20px 10px;
-            }
-        }
+/* ───────────────────────────────────────────────
+   Envelope & Letter Popup – Complete & Fixed
+─────────────────────────────────────────────── */
 
-        @media (max-width: 480px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
+.envelope-container {
+    perspective: 1200px;
+    width: 75%;
+    max-width: 300px;
+    height: 180px;
+    margin: 40px auto;
+    cursor: pointer;
+    position: relative;
+}
 
-            .counter-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+}
+
+.envelope-body {
+    position: absolute;
+    inset: 0;
+    background: #fff0f7;
+    border: 3px solid #ff6b9d;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(212, 20, 90, 0.3);
+    z-index: 1;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 58%;
+    background: linear-gradient(135deg, #f15488, #f15488);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    transform-origin: top center;
+    transition: transform 2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    z-index: 10;
+    border: 3px solid #ff6b9d;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.envelope.opened .envelope-flap {
+    transform: rotateX(180deg) translateY(-6px);
+}
+
+.letter-paper {
+    position: absolute;
+    bottom: 8%;
+    left: 7%;
+    width: 86%;
+    height: 0;
+    background: #fffef7;
+    border: 2px solid #ffe4e1;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    overflow: hidden;
+    transition: all 2.2s ease-out;
+    z-index: 6;
+}
+
+.envelope.opened .letter-paper {
+    height: 70%;
+    bottom: auto;
+    top: -140%;
+    opacity: 0;
+    transform: scale(0.92) translateY(-20px);
+}
+
+.letter-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.letter-popup.active {
+    display: flex;
+}
+
+.letter-popup-content {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    background: transparent;
+    border-radius: 16px;
+    animation: popupAppear 0.7s ease-out;
+}
+
+.letter-paper-popup {
+    background: #fffef7;
+    border: 3px solid #ffd1dc;
+    border-radius: 16px;
+    padding: 40px 32px;
+    min-height: 380px;
+    box-shadow: 
+        0 20px 60px rgba(212, 20, 90, 0.45),
+        inset 0 2px 8px rgba(255,255,255,0.7);
+    position: relative;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.letter-paper-popup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.letter-content {
+    font-family: 'Georgia', serif;
+    font-size: clamp(15.5px, 3.4vw, 18px);
+    line-height: 1.8;
+    color: #2d1a0f;
+}
+
+.letter-close {
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    width: 44px;
+    height: 44px;
+    background: #ff6b9d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255,107,157,0.5);
+    transition: all 0.25s;
+    z-index: 10;
+}
+
+.letter-close:hover {
+    transform: scale(1.15) rotate(90deg);
+    background: #e55a8b;
+}
+.letter-paper {
+    display: none !important;
+}
+@keyframes popupAppear {
+    from { opacity: 0; transform: scale(0.7) translateY(60px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
     </style>
 </head>
 <body>
@@ -1532,16 +1676,35 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             </button>
         </section>
 
-        <!-- Final Message -->
-        <section class="message-section">
-            <div class="message-box">
-                <p style="font-family: 'Times New Roman', Times, serif;" data-text="lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt"></p>
-                <p data-text="lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt"></p>
-                <p data-text="lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt"></p>
-                <p class="signature">With all my love,<br>Always & Forever 💖</p>
-                <button class="confetti-btn" onclick="launchConfetti()">💕 Celebrate Our Love 💕</button>
+        <!-- Interactive Envelope Section -->
+<section class="message-section">
+    <div class="envelope-container" id="envelopeContainer">
+        <div class="envelope" id="envelope">
+            <div class="envelope-body"></div>
+            <div class="envelope-flap"></div>
+            
+            <!-- The sliding paper (only visible during animation) -->
+            <div class="letter-paper" id="letterPaper">
+                <div class="letter-content-preview"></div> <!-- optional subtle preview -->
             </div>
-        </section>
+        </div>
+    </div>
+    
+    <div class="tap-hint">✨ Tap the envelope to open your letter ✨</div>
+    <button class="confetti-btn" onclick="launchConfetti()">💕 Celebrate Our Love 💕</button>
+</section>
+
+<!-- Pop-up for the actual letter -->
+<div class="letter-popup" id="letterPopup">
+    <div class="letter-popup-content">
+        <button class="letter-close" onclick="closeLetterPopup()">×</button>
+        <div class="letter-paper-popup">
+            <div class="letter-content" id="letterContent">
+                <!-- Typed text will appear here -->
+            </div>
+        </div>
+    </div>
+</div>
     </div>
 
     <script>
@@ -1950,6 +2113,91 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
         if (quizSection) {
             quizObserver.observe(quizSection);
         }
+
+        // Interactive Envelope + Pop-up Letter
+const envelopeContainer = document.getElementById('envelopeContainer');
+const envelope = document.getElementById('envelope');
+const letterPopup = document.getElementById('letterPopup');
+const letterContent = document.getElementById('letterContent');
+const tapHint = document.querySelector('.tap-hint');
+let isEnvelopeOpened = false;
+
+const letterParagraphs = [
+    "I want to tell you about some words in my heart to you..💜.",
+    "I want to tell you that I love you deeply and I will forever be there for you,because i do care about you and I really love you from my heart..I hope you know that.🫶🏻",
+    "Remember you have a place in my heart no one else could ever have,I love you today and tomorrow and forever,my be i don’t see you everyday but I love you everyday💕",
+    "every morning I wake up my frist though is always you and your massage.🤍",
+    "I love your eyes,your smile,your voice..,i love everything about you 💓",
+    "I won’t find someone like you and I won’t find even if I search all over the world 🌎 you are always there best 💗..,so I really hope I can be a better person for you ✨.",
+    "I promise i will always care about you,i will always but you in my eyes and make you feel safe with me ,I promise to be next to you all the time ❤️",
+    "I promise to keep do my best to make you feel loved and happy as you deserve.😘",
+    "I will never get tired of loving you,you mean everything to me 🩷",
+    "I promise I will always love you forever ♾️❤️.",
+    "I am the luckiest man ever to have you in my life 🥹❤️❤️",
+    "My heart belongs to you Nourhanty💗"
+];
+
+function typeWriter(element, text, speed = 48, callback) {
+    let i = 0;
+    element.innerHTML = '';
+    function type() {
+        if (i < text.length) {
+            let char = text.charAt(i);
+            element.innerHTML += (char === '\n') ? '<br>' : char;
+            i++;
+            setTimeout(type, speed + Math.random() * 24 - 12);
+        } else if (callback) {
+            callback();
+        }
+    }
+    type();
+}
+
+if (envelopeContainer) {
+    envelopeContainer.addEventListener('click', () => {
+        if (isEnvelopeOpened) return;
+        isEnvelopeOpened = true;
+        
+        envelope.classList.add('opened');
+        
+        setTimeout(() => {
+            letterPopup.classList.add('active');
+
+            let idx = 0;
+            function typeNext() {
+                if (idx >= letterParagraphs.length) return;
+                const p = document.createElement('p');
+                p.style.margin = '0 0 1.3em 0';
+                letterContent.appendChild(p);
+
+                typeWriter(p, letterParagraphs[idx], 48, () => {
+                    idx++;
+                    setTimeout(typeNext, idx === letterParagraphs.length - 1 ? 1200 : 1600);
+                });
+            }
+            typeNext();
+        }, 1600);
+    });
+}
+
+function closeLetterPopup() {
+    letterPopup.classList.remove('active');
+    
+    // Reset envelope so it can be opened again
+    setTimeout(() => {
+        envelope.classList.remove('opened');
+        isEnvelopeOpened = false;
+        letterContent.innerHTML = '';           // clear text for fresh typing next time
+        tapHint.textContent = "✨ Tap the envelope to open your letter ✨";
+    }, 700);
+}
+
+// Close when clicking outside the popup content
+letterPopup.addEventListener('click', (e) => {
+    if (e.target === letterPopup) {
+        closeLetterPopup();
+    }
+});
     </script>
 </body>
 </html>
