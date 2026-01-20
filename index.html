@@ -1221,7 +1221,7 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
         .moments-track-wrapper { width: 860px; overflow-x:auto; overflow-y:hidden; margin: 0 auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; touch-action: pan-y; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
         .moments-track-wrapper::-webkit-scrollbar { height: 0; display: none; }
         .moments-track { display:flex; gap:18px; list-style:none; padding:0; margin:0; }
-        .moment-card { flex: 0 0 260px; background:rgba(0,0,0,0.12); border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); display:flex; flex-direction:column; scroll-snap-align: center; }
+        .moment-card { flex: 0 0 260px; background:#2f2f2f; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); display:flex; flex-direction:column; scroll-snap-align: center; }
         .moment-photo { width:100%; height:auto; display:block; object-fit:cover; }
         .moment-body { padding:14px; text-align:left; font-family:'Georgia', serif; background:#2f2f2f; color:#ffffff; }
         .moment-date { font-weight:700; color:#d4af37; margin-bottom:8px; }
@@ -2053,23 +2053,29 @@ function beginEmojiRain() {
     if(prevBtn) prevBtn.addEventListener('click', ()=>{ stopAutoplay(); prev(); startAutoplay(); });
 
     // touch / pointer support — single-card swipe per gesture and immediate counter update
-    let gestureStartX = 0, gestureStartY = 0, lastX = 0, lastY = 0, isDown = false, activePointerId = null, lockDir = null;
+    let gestureStartX = 0, gestureStartY = 0, lastX = 0, lastY = 0, isDown = false, activePointerId = null, lockDir = null, startScrollLeft = 0;
     const SWIPE_THRESHOLD = 40; // px — minimum to count as a swipe
 
     function settleByDirectionAndReset(endX){
-        const total = endX - gestureStartX;
+        // Prefer scroll-based delta (robust across devices). Positive deltaScroll => user moved content left (next).
+        const SCROLL_THRESHOLD = 30; // px
+        const deltaScroll = wrapper.scrollLeft - startScrollLeft;
         let target = current;
-        if (total <= -SWIPE_THRESHOLD) {
-            // swipe left → next
-            target = Math.min(current + 1, data.length - 1);
-        } else if (total >= SWIPE_THRESHOLD) {
-            // swipe right → prev
-            target = Math.max(current - 1, 0);
+        if (Math.abs(deltaScroll) >= SCROLL_THRESHOLD) {
+            if (deltaScroll > 0) target = Math.min(current + 1, data.length - 1);
+            else target = Math.max(current - 1, 0);
         } else {
-            // small movement → snap back
-            target = current;
+            // fallback to pointer delta if scroll delta is small
+            const total = endX - gestureStartX;
+            if (total <= -SWIPE_THRESHOLD) {
+                target = Math.min(current + 1, data.length - 1);
+            } else if (total >= SWIPE_THRESHOLD) {
+                target = Math.max(current - 1, 0);
+            } else {
+                target = current;
+            }
         }
-        // manual change: stop, move, update indicators immediately, then (no autoplay by default)
+        // manual change: stop, move, update indicators immediately
         stopAutoplay();
         scrollToIndex(target, true);
         startAutoplay();
@@ -2083,6 +2089,7 @@ function beginEmojiRain() {
         gestureStartY = e.clientY;
         lastX = e.clientX;
         lastY = e.clientY;
+        startScrollLeft = wrapper.scrollLeft;
         wrapper.style.scrollSnapType = 'none';
         try { wrapper.setPointerCapture(activePointerId); } catch (err) {}
     });
