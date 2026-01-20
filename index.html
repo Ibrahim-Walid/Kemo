@@ -64,284 +64,32 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* Password Screen */
-        .password-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #21006e 0%, #ffc1e3 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10001;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-
-        .password-container.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .password-input {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #ff6b9d;
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 18px;
-            text-align: center;
-            width: 200px;
-            margin-bottom: 20px;
-            outline: none;
-        }
-
-        .password-button {
-            background: #ff6b9d;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .password-button:hover {
-            background: #e55a8b;
-        }
-
-        .password-text {
-            color: white;
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .password-display {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #ff6b9d;
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 20px;
-            text-align: center;
-            width: 150px;
-            height: 50px;
-            margin-bottom: 20px;
-            font-family: monospace;
-            letter-spacing: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            color: #333;
-        }
-
-        .password-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            max-width: 230px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .clear-button {
-            background: linear-gradient(135deg, #ff6b9d 0%, #e55a8b 100%) !important;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .clear-button:hover {
-            background: linear-gradient(135deg, #e55a8b 0%, #d14a7a 100%) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.6);
-        }
-
-        .enter-button {
-            background: linear-gradient(135deg, #9c6ade 0%, #7c4dff 100%) !important;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 15px 10px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(156, 106, 222, 0.4);
-            height: 50px;
-            box-sizing: border-box;
-            width: 60px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .enter-button:hover {
-            background: linear-gradient(135deg, #7c4dff 0%, #651fff 100%) !important;
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(156, 106, 222, 0.6);
-        }
-
-        .enter-button:active {
-            transform: scale(0.95);
-        }
-
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .keypad-button.zero {
-            grid-column: 2;
-        }
-
-        .keypad-button {
-            background: #ff6b9d;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
-        }
-
-        .keypad-button:hover {
-            background: #e55a8b;
-            transform: scale(1.05);
-        }
-
-        .keypad-button:active {
-            transform: scale(0.95);
-        }
-
-        /* Wrong Password Popup */
-        .wrong-password-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10002;
-        }
-
-        .wrong-password-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 300px;
-            width: 90%;
-        }
-
-        .wrong-password-emoji {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-
-        .wrong-password-text {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
-            font-family: 'Georgia', serif;
-        }
-
-        .wrong-password-close {
-            background: #ff6b9d;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .wrong-password-close:hover {
-            background: #e55a8b;
-        }
-
-        /* Hide default input on mobile */
-        @media (max-width: 768px) {
-            .password-input {
-                display: none;
-            }
-        }
-
-        /* Show keypad only on mobile */
-        @media (min-width: 769px) {
-            .keypad {
-                display: none;
-            }
-            .password-display {
-                display: none;
-            }
-            .password-row {
-                display: none;
-            }
-            .password-input {
-                display: block !important;
-            }
-        }
-
         /* Floating elements */
-        .hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
+        .emoji-rain-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100000;
+    overflow: hidden;
+}
 
-        .heart {
-            position: absolute;
-            font-size: clamp(15px, 4vw, 25px);
-            animation: float 15s infinite;
-            opacity: 0;
-        }
+.falling-emoji {
+    position: absolute;
+    font-size: 32px;
+    opacity: 1;
+    will-change: transform;
+}
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-20vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
+@keyframes rainDown {
+    0% {
+        transform: translateY(-100px) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg) scale(0.3);
+        opacity: 0;
+    }
+}
 
         /* Music control */
         .music-control {
@@ -1015,13 +763,14 @@
         .counter-section {
             padding: clamp(30px, 8vh, 60px) 20px;
             text-align: center;
-            background: linear-gradient(135deg, #fff0f7 0%, #ffe8f3 100%);
+            background: linear-gradient(135deg, #1c2d41 0%, #2d1a3d 100%);
         }
 
         .counter-section h2 {
             font-size: clamp(1.8em, 6vw, 2.5em);
-            color: #d4145a;
+            color: #ffffff;
             margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .counter-grid {
@@ -1033,167 +782,35 @@
         }
 
         .counter-box {
-            background: white;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.15) 0%, rgba(255, 193, 227, 0.1) 100%);
             border-radius: 20px;
             padding: 25px 15px;
-            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2);
-            border: 3px solid #ffc1e3;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+            border: 2px solid #ff6b9d;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .counter-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.5);
+            border-color: #d4145a;
         }
 
         .counter-number {
             font-size: clamp(2em, 6vw, 3em);
-            color: #d4145a;
+            color: #ff6b9d;
             font-weight: bold;
             margin-bottom: 10px;
+            text-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
         }
 
         .counter-label {
             font-size: clamp(0.9em, 3vw, 1.1em);
-            color: #9b4d8c;
+            color: #ffc1e3;
         }
 
-        /* Photo gallery */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 100%;
-        }
 
-        .photo-card {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
-            transition: all 0.5s ease;
-            background: white;
-            border: 4px solid #ffc1e3;
-            aspect-ratio: 1;
-        }
-
-        .photo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
-        }
-
-        .photo-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(2em, 8vw, 3em);
-            background: linear-gradient(135deg, #fff0f7, #ffe8f3);
-        }
-
-        .photo-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 15px;
-            background: linear-gradient(transparent, rgba(212, 20, 90, 0.95));
-            color: white;
-            font-size: clamp(0.9em, 3vw, 1.1em);
-        }
-
-        /* Video button */
-        .video-section {
-            padding: clamp(30px, 8vh, 60px) 20px;
-            text-align: center;
-        }
-
-        .video-section h2 {
-            font-size: clamp(1.8em, 6vw, 2.5em);
-            color: #d4145a;
-            margin-bottom: 30px;
-        }
-
-        .video-trigger {
-            background: linear-gradient(135deg, #ff6b9d 0%, #d4145a 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 20px 40px;
-            font-size: clamp(1.1em, 4vw, 1.5em);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(212, 20, 90, 0.4);
-            font-family: 'Georgia', serif;
-        }
-
-        .video-trigger:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(212, 20, 90, 0.6);
-        }
-
-        /* Video Popup */
-        .video-popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .video-popup.active {
-            display: flex;
-        }
-
-        .video-popup-content {
-            position: relative;
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.5);
-            animation: popupSlide 0.5s ease-out;
-        }
-
-        @keyframes popupSlide {
-            from {
-                opacity: 0;
-                transform: scale(0.8) translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .video-close {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            background: #d4145a;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(212, 20, 90, 0.5);
-        }
-
-        .video-placeholder {
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #ffd6eb, #ffc1e3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            font-size: clamp(1.2em, 4vw, 1.8em);
-            color: #6b2d5c;
-        }
 
         /* Final Message with Confetti */
         .message-section {
@@ -1276,35 +893,6 @@
                 transform: scale(2) rotate(180deg);
             }
         }
-
-        .video-normal-section {
-    padding: clamp(40px, 10vh, 70px) 20px;
-    text-align: center;
-    background: linear-gradient(135deg, #fff0f7 0%, #ffe4f0 100%);
-}
-
-.video-normal-section h2 {
-    font-size: clamp(2em, 7vw, 3em);
-    color: #d4145a;
-    margin-bottom: 35px;
-    font-weight: bold;
-}
-
-.video-wrapper-main {
-    max-width: 960px;
-    margin: 0 auto;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 14px 45px rgba(212, 20, 90, 0.35);
-    border: 3px solid #ffc1e3;
-    background: #000;
-}
-
-.video-wrapper-main video {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 /* ───────────────────────────────────────────────
    Envelope & Letter Popup – Complete & Fixed
 ─────────────────────────────────────────────── */
@@ -1560,13 +1148,6 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
     background: #000;
 }
 
-.video-caption {
-    margin-top: 12px;
-    font-size: 1.1em;
-    color: #6b2d5c;
-    font-style: italic;
-    opacity: 0.9;
-}
 
 /* Ready Screen */
 .ready-container {
@@ -1651,9 +1232,7 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
         <div class="preloader-text">Loading Love...</div>
     </div>
 
-    <!-- Floating hearts -->
-    <div class="hearts" id="hearts"></div>
-
+    
     <!-- Music control -->
     <div class="music-control" id="musicBtn" title="Toggle Music">
         🔊
@@ -1674,18 +1253,7 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
         </div>
     </div>
 
-    <!-- Video Popup -->
-    <div class="video-popup" id="videoPopup">
-        <div class="video-popup-content">
-            <button class="video-close" id="videoClose">×</button>
-            <div class="video-placeholder">
-                <br>
-                <video width="100%" height="100%" controls>
-                    <source src="./1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-            </div>
-        </div>
-    </div>
+
 
     <div class="container">
         <!-- Hero section -->
@@ -1792,45 +1360,6 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             </div>
         </section>
 
-        <!-- Photo gallery -->
-        <!-- <section class="gallery">
-            <div class="photo-card">
-                <img src="./1.jpg" alt="Photo 1" class="photo-placeholder">
-                <div class="photo-caption">Our first adventure</div>
-            </div>
-            <div class="photo-card">
-                <img src="./2.jpg" alt="Photo 2" class="photo-placeholder">
-                <div class="photo-caption">The day I knew</div>
-            </div>
-            <div class="photo-card">
-                <img src="./3.jpg" alt="Photo 3" class="photo-placeholder">
-                <div class="photo-caption">Beautiful memories</div>
-            </div>
-            <div class="photo-card">
-                <img src="./4.jpg" alt="Photo 4" class="photo-placeholder">
-                <div class="photo-caption">Forever grateful</div>
-            </div>
-            <div class="photo-card">
-                <img src="./1.jpg" alt="Photo 5" class="photo-placeholder">
-                <div class="photo-caption">Every day special</div>
-            </div>
-            <div class="photo-card">
-                <img src="./1.jpg" alt="Photo 6" class="photo-placeholder">
-                <div class="photo-caption">My heart is yours</div>
-            </div>
-        </section> -->
-        <!-- Normal Video Section – always visible, no popup -->
-<!-- Our Beautiful Moments – normal embedded video with cover + music control -->
-<!-- <section class="video-normal-section">
-    <h2>💞 Our Beautiful Moments 💞</h2>
-    <div class="video-wrapper-main">
-        <video id="momentsVideo" controls preload="auto">
-    <source src="./moments.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-    </div>
-</section> -->
-
         <!-- Love Counter -->
         <section class="counter-section">
             <h2>⏰ Our Time Together ⏰</h2>
@@ -1852,14 +1381,6 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
                     <div class="counter-label">Seconds</div>
                 </div>
             </div>
-        </section>
-
-        <!-- Video section -->
-        <section class="video-section">
-            <h2>✨ Our Story ✨</h2>
-            <button class="video-trigger" id="videoTrigger">
-                🎬 Watch Our Journey
-            </button>
         </section>
 
         <!-- Interactive Envelope Section -->
@@ -1929,6 +1450,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
                 setTimeout(() => {
                     preloaderContainer.classList.add('hidden');
                     startMusic();
+                    beginEmojiRain();
                 }, 3800);
             }, 100);
         }
@@ -2089,46 +1611,6 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             }
         });
 
-        // Video popup
-        const videoTrigger = document.getElementById('videoTrigger');
-        const videoPopup = document.getElementById('videoPopup');
-        const videoClose = document.getElementById('videoClose');
-
-        videoTrigger.addEventListener('click', () => {
-            videoPopup.classList.add('active');
-            // Mute music when video opens
-            if (isPlaying) {
-                music.pause();
-                musicBtn.textContent = '🔇';
-                isPlaying = false;
-            }
-        });
-
-        videoClose.addEventListener('click', () => {
-            videoPopup.classList.remove('active');
-            // Resume music when video closes
-            music.play().then(() => {
-                isPlaying = true;
-                musicBtn.textContent = '🔊';
-            }).catch(() => {
-                // Autoplay might be blocked
-                isPlaying = false;
-            });
-        });
-
-        videoPopup.addEventListener('click', (e) => {
-            if (e.target === videoPopup) {
-                videoPopup.classList.remove('active');
-                // Resume music when video closes
-                music.play().then(() => {
-                    isPlaying = true;
-                    musicBtn.textContent = '🔊';
-                }).catch(() => {
-                    isPlaying = false;
-                });
-            }
-        });
-
         // Confetti effect
         function launchConfetti() {
             for (let i = 0; i < 100; i++) {
@@ -2164,24 +1646,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             setTimeout(() => confetti.remove(), duration * 1000);
         }
 
-        // Floating hearts
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            const hearts = ['❤️', '💕', '💖', '💗', '💓'];
-            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 8 + 12) + 's';
-            heart.style.animationDelay = Math.random() * 3 + 's';
-            document.getElementById('hearts').appendChild(heart);
 
-            setTimeout(() => heart.remove(), 20000);
-        }
-
-        setInterval(createHeart, 2000);
-        for (let i = 0; i < 10; i++) {
-            setTimeout(createHeart, i * 300);
-        }
 
         // Sparkle effect
         function createSparkle(x, y) {
@@ -2404,6 +1869,43 @@ if (letterVideo) {
     letterVideo.addEventListener('ended', resumeMusicAfterLetterVideo);
 }
 
+// Fresh emoji rain system
+function spawnRainingEmoji() {
+    const rainContainer = document.getElementById('emojiRainContainer');
+    if (!rainContainer) return;
+
+    const emoji = document.createElement('div');
+    emoji.className = 'falling-emoji';
+
+    const emojiSet = ['🌸', '🎂', '💗'];
+    emoji.textContent = emojiSet[Math.floor(Math.random() * emojiSet.length)];
+
+    emoji.style.left = Math.random() * window.innerWidth + 'px';
+    emoji.style.top = '-50px';
+    
+    const randomDuration = Math.random() * 3 + 4; // 4-7 seconds (faster)
+    emoji.style.animation = `rainDown ${randomDuration}s linear forwards`;
+    
+    const randomSize = Math.random() * 24 + 24; // 24-48px
+    emoji.style.fontSize = randomSize + 'px';
+
+    rainContainer.appendChild(emoji);
+
+    setTimeout(() => emoji.remove(), randomDuration * 1000);
+}
+
+function beginEmojiRain() {
+    // Initial burst
+    for (let i = 0; i < 12; i++) {
+        setTimeout(spawnRainingEmoji, i * 150);
+    }
+    // Continuous rain (less dense)
+    setInterval(spawnRainingEmoji, 1200);
+}
+
+
     </script>
+    <!-- Emoji rain effect -->
+    <div class="emoji-rain-container" id="emojiRainContainer"></div>
 </body>
 </html>
