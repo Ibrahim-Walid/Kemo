@@ -1569,34 +1569,6 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
     </style>
 </head>
 <body>
-    <!-- Password Screen -->
-    <div class="password-container" id="passwordContainer">
-        <div class="password-text">Enter Password</div>
-        <div class="password-row">
-            <div class="password-display" id="passwordDisplay"></div>
-            <button class="enter-button" onclick="checkPassword()">Enter</button>
-        </div>
-        <input type="password" class="password-input" id="passwordInput" placeholder="Password" style="display: none;">
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.getElementById('passwordContainer').classList.add('hidden');
-                document.getElementById('preloaderContainer').style.display = 'flex';
-                startPreloader();
-            }, 500);
-        });
-        
-        <button class="clear-button" onclick="clearPassword()">Clear</button>
-    </div>
-
-    <!-- Wrong Password Popup -->
-    <div class="wrong-password-popup" id="wrongPasswordPopup">
-        <div class="wrong-password-content">
-            <div class="wrong-password-emoji">😢</div>
-            <button class="wrong-password-close" onclick="closeWrongPasswordPopup()">Try Again</button>
-        </div>
-    </div>
-
     <!-- Preloader -->
     <div class="preloader-container" id="preloaderContainer">
         <div class="preloader-heart">💕</div>
@@ -1773,7 +1745,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
         </section> -->
         <!-- Normal Video Section – always visible, no popup -->
 <!-- Our Beautiful Moments – normal embedded video with cover + music control -->
-<section class="video-normal-section">
+<!-- <section class="video-normal-section">
     <h2>💞 Our Beautiful Moments 💞</h2>
     <div class="video-wrapper-main">
         <video id="momentsVideo" controls preload="auto">
@@ -1781,7 +1753,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
     Your browser does not support the video tag.
 </video>
     </div>
-</section>
+</section> -->
 
         <!-- Love Counter -->
         <section class="counter-section">
@@ -1858,87 +1830,19 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
     </div>
 
     <script>
-        // Password variables
-        let currentPassword = '';
-        let showPassword = false;
 
-        // Skip password screen on page load - go directly to preloader
+        // Preloader - Auto start on page load
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.getElementById('passwordContainer').classList.add('hidden');
-                document.getElementById('preloaderContainer').style.display = 'flex';
-                startPreloader();
-            }, 500); // Small delay to ensure DOM is ready
-        });
-
-        // Password keypad functions
-        function addDigit(digit) {
-            if (currentPassword.length < 6) {
-                currentPassword += digit;
-                updatePasswordDisplay();
-            }
-        }
-
-        function clearPassword() {
-            currentPassword = '';
-            updatePasswordDisplay();
-        }
-
-        function closeWrongPasswordPopup() {
-            document.getElementById('wrongPasswordPopup').style.display = 'none';
-        }
-
-        function updatePasswordDisplay() {
-            const display = document.getElementById('passwordDisplay');
-            const input = document.getElementById('passwordInput');
-            
-            // Update display for mobile - show dots
-            display.textContent = '●'.repeat(currentPassword.length);
-            
-            // Sync hidden input for desktop
-            input.value = currentPassword;
-        }
-
-        // Password check
-        function checkPassword() {
-            if (currentPassword === '2012') {
-                document.getElementById('passwordContainer').classList.add('hidden');
-                document.getElementById('preloaderContainer').style.display = 'flex';
-                startPreloader();
-            } else {
-                document.getElementById('wrongPasswordPopup').style.display = 'flex';
-                clearPassword();
-            }
-        }
-
-        // Allow Enter key to submit password (for desktop)
-        document.getElementById('passwordInput').addEventListener('input', function(e) {
-            currentPassword = e.target.value;
-            updatePasswordDisplay();
-        });
-
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
-
-        // Initialize password display
-        document.addEventListener('DOMContentLoaded', function() {
-            updatePasswordDisplay();
-        });
-
-        // Preloader
-        function startPreloader() {
             const preloaderContainer = document.getElementById('preloaderContainer');
             if (preloaderContainer) {
+                preloaderContainer.style.display = 'flex';
                 setTimeout(() => {
                     preloaderContainer.classList.add('hidden');
                     // Start music after preloader finishes
                     startMusic();
-                }, 2000);
+                }, 3800);
             }
-        }
+        });
 
         // Music control
         function startMusic() {
