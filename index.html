@@ -1571,41 +1571,28 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
 <body>
     <!-- Password Screen -->
     <div class="password-container" id="passwordContainer">
-        <!-- <div class="password-text">Enter Password</div>
+        <div class="password-text">Enter Password</div>
         <div class="password-row">
             <div class="password-display" id="passwordDisplay"></div>
             <button class="enter-button" onclick="checkPassword()">Enter</button>
         </div>
         <input type="password" class="password-input" id="passwordInput" placeholder="Password" style="display: none;">
         
-        <div class="keypad">
-            <button class="keypad-button" onclick="addDigit('1')">1</button>
-            <button class="keypad-button" onclick="addDigit('2')">2</button>
-            <button class="keypad-button" onclick="addDigit('3')">3</button>
-            <button class="keypad-button" onclick="addDigit('4')">4</button>
-            <button class="keypad-button" onclick="addDigit('5')">5</button>
-            <button class="keypad-button" onclick="addDigit('6')">6</button>
-            <button class="keypad-button" onclick="addDigit('7')">7</button>
-            <button class="keypad-button" onclick="addDigit('8')">8</button>
-            <button class="keypad-button" onclick="addDigit('9')">9</button>
-            <button class="keypad-button zero" onclick="addDigit('0')">0</button>
-        </div>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('passwordContainer').classList.add('hidden');
+                document.getElementById('preloaderContainer').style.display = 'flex';
+                startPreloader();
+            }, 500);
+        });
         
-        <button class="clear-button" onclick="clearPassword()">Clear</button> -->
+        <button class="clear-button" onclick="clearPassword()">Clear</button>
     </div>
 
     <!-- Wrong Password Popup -->
     <div class="wrong-password-popup" id="wrongPasswordPopup">
         <div class="wrong-password-content">
             <div class="wrong-password-emoji">😢</div>
-            <script>
-                // Skip password screen - go directly to preloader
-                document.addEventListener('DOMContentLoaded', function() {
-                    document.getElementById('passwordContainer').classList.add('hidden');
-                    document.getElementById('preloaderContainer').style.display = 'flex';
-                    startPreloader();
-                });
-            </script>
             <button class="wrong-password-close" onclick="closeWrongPasswordPopup()">Try Again</button>
         </div>
     </div>
@@ -1874,6 +1861,15 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
         // Password variables
         let currentPassword = '';
         let showPassword = false;
+
+        // Skip password screen on page load - go directly to preloader
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('passwordContainer').classList.add('hidden');
+                document.getElementById('preloaderContainer').style.display = 'flex';
+                startPreloader();
+            }, 500); // Small delay to ensure DOM is ready
+        });
 
         // Password keypad functions
         function addDigit(digit) {
