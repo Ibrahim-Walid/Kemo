@@ -677,14 +677,14 @@
             top: 50px;
             left: 10px;
             width: 180px;
-            rotate: -10deg;
+            transform: rotate(-10deg);
         }
 
         .photo-2 {
             bottom: -40px;
             left: 0px;
             width: 200px;
-            rotate: -10deg;
+            transform: rotate(-10deg);
         }
 
         .photo-3 {
@@ -1214,6 +1214,31 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
 }
 
 
+        /* Important Moments carousel base styles (injected) */
+        .moments-section { padding: 60px 20px; text-align: center; }
+        .moments-title { font-size: clamp(1.8em, 5vw, 2.6em); color: #d4145a; margin-bottom: 20px; }
+        .moments-carousel { display:flex; align-items:center; justify-content:center; gap:12px; }
+        .moments-track-wrapper { width: 860px; overflow-x:auto; overflow-y:hidden; margin: 0 auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .moments-track { display:flex; gap:18px; list-style:none; padding:0; margin:0; }
+        .moment-card { flex: 0 0 260px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.12); display:flex; flex-direction:column; scroll-snap-align: center; }
+        .moment-photo { width:100%; height:auto; display:block; object-fit:cover; }
+        .moment-body { padding:14px; text-align:left; font-family:'Georgia', serif; color:#2d1a0f; }
+        .moment-date { font-weight:700; color:#d4145a; margin-bottom:8px; }
+        .moment-text { font-size:0.95rem; line-height:1.4; }
+        .moments-arrow { background:white; border:1px solid rgba(0,0,0,0.08); width:44px; height:44px; border-radius:50%; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+        .moments-controls { margin-top:12px; display:flex; justify-content:center; align-items:center; gap:12px; }
+        .moments-indicators { display:flex; gap:8px; }
+        .moments-indicators button{ width:10px; height:10px; border-radius:50%; border:none; background:rgba(0,0,0,0.15); cursor:pointer; }
+        .moments-indicators button.active { background:#d4145a; }
+        .moments-counter { color:#6b2d5c; font-weight:700; }
+
+        @media (max-width:1000px) {
+            .moments-track-wrapper { width: calc(100vw - 64px); }
+            .moment-card { flex: 0 0 220px; }
+            .moment-photo { height:auto; }
+        }
+
+
     </style>
 </head>
 <body>
@@ -1326,6 +1351,24 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
                     <!-- base line -->
                     <path d="M55 155 Q110 165 165 155" />
                 </svg>
+            </div>
+        </section>
+
+        <!-- Important Moments (new carousel) -->
+        <section class="moments-section" id="momentsSection">
+            <h2 class="moments-title">🎂 Important Moments 🎂</h2>
+            <div class="moments-carousel">
+                <div class="moments-track-wrapper">
+                    <ul class="moments-track" id="momentsTrack">
+                        <!-- JS will populate 8 items -->
+                    </ul>
+                </div>
+            </div>
+            <div class="moments-controls">
+                <button class="moments-arrow moments-prev" aria-label="Previous">❮</button>
+                <div class="moments-indicators" id="momentsIndicators"></div>
+                <div class="moments-counter"><span id="momentsIndex">1</span>/8</div>
+                <button class="moments-arrow moments-next" aria-label="Next">❯</button>
             </div>
         </section>
 
@@ -1604,6 +1647,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             quizPopup.classList.remove('active');
         }
 
+
         // Close popup when clicking outside
         quizPopup.addEventListener('click', (e) => {
             if (e.target === quizPopup) {
@@ -1623,7 +1667,8 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
         function createConfetti() {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
-            confetti.textContent = ['💗','🌸'][Math.floor(Math.random() * 6)];
+            const confettiSymbols = ['💗','🌸','🎉','💫','🌹','✨'];
+            confetti.textContent = confettiSymbols[Math.floor(Math.random() * confettiSymbols.length)];
             confetti.style.left = Math.random() * window.innerWidth + 'px';
             confetti.style.top = '-50px';
             confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
@@ -1902,6 +1947,117 @@ function beginEmojiRain() {
     // Continuous rain (less dense)
     setInterval(spawnRainingEmoji, 1200);
 }
+
+// Important Moments carousel functionality
+(function(){
+    const data = [
+        {src:'./1-1.jpeg', date:'2024-03-12', text:'Beach picnic and sunset.'},
+        {src:'./1-2.jpeg', date:'2023-12-01', text:'Snow day memories.'},
+        {src:'./1-3.jpeg', date:'2023-08-05', text:'Our road trip.'},
+        {src:'./1.jpg',   date:'2022-06-20', text:'Graduation day.'},
+        {src:'./2.jpg',   date:'2021-11-10', text:'First concert together.'},
+        {src:'./3.jpg',   date:'2020-02-14', text:'Valentine surprise.'},
+        {src:'./4.jpg',   date:'2019-09-30', text:'Hiking and views.'},
+        {src:'./1.jpg',   date:'2018-05-18', text:'Café morning.'}
+    ];
+
+    const track = document.getElementById('momentsTrack');
+    const wrapper = document.querySelector('.moments-track-wrapper');
+    const indicators = document.getElementById('momentsIndicators');
+    const indexLabel = document.getElementById('momentsIndex');
+    let current = 0;
+    let autoplayId = null;
+
+    function build() {
+        data.forEach((item,i)=>{
+            const li = document.createElement('li');
+            li.className = 'moment-card';
+            li.innerHTML = `
+                <img class="moment-photo" src="${item.src}" alt="Moment ${i+1}">
+                <div class="moment-body">
+                    <div class="moment-date">${item.date}</div>
+                    <div class="moment-text">${item.text}</div>
+                </div>`;
+            track.appendChild(li);
+
+            const btn = document.createElement('button');
+            btn.addEventListener('click', ()=> goTo(i));
+            indicators.appendChild(btn);
+        });
+        refreshIndicators();
+        // compute edge padding so first/last can center
+        setEdgePadding();
+        // center first after layout
+        setTimeout(()=> scrollToIndex(0, false), 60);
+        startAutoplay();
+
+        // adjust on resize
+        window.addEventListener('resize', ()=>{
+            setEdgePadding();
+            // re-center current without smooth to avoid jumps
+            scrollToIndex(current, false);
+        });
+    }
+
+    function getCardElements(){ return Array.from(track.children); }
+
+    function setEdgePadding(){
+        const cards = getCardElements();
+        if(!cards.length) return;
+        const card = cards[0];
+        const pad = Math.max(0, (wrapper.clientWidth - card.clientWidth) / 2);
+        track.style.paddingLeft = pad + 'px';
+        track.style.paddingRight = pad + 'px';
+    }
+
+    function scrollToIndex(idx, smooth=true){
+        const cards = getCardElements();
+        if (!cards[idx]) return;
+        const card = cards[idx];
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        const left = card.offsetLeft - (wrapper.clientWidth - card.clientWidth)/2;
+        wrapper.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+        current = idx;
+        refreshIndicators();
+    }
+
+    function goTo(idx){ stopAutoplay(); scrollToIndex(idx); startAutoplay(); }
+
+    function next(){ goTo((current+1)%data.length); }
+    function prev(){ goTo((current-1+data.length)%data.length); }
+
+    function refreshIndicators(){
+        const btns = indicators.children;
+        for(let i=0;i<btns.length;i++) btns[i].classList.toggle('active', i===current);
+        if(indexLabel) indexLabel.textContent = (current+1);
+    }
+
+    function startAutoplay(){ stopAutoplay(); autoplayId = setInterval(()=> next(), 4500); }
+    function stopAutoplay(){ if(autoplayId) { clearInterval(autoplayId); autoplayId=null; } }
+
+    // wire arrows
+    const nextBtn = document.querySelector('.moments-next');
+    const prevBtn = document.querySelector('.moments-prev');
+    if(nextBtn) nextBtn.addEventListener('click', ()=>{ stopAutoplay(); next(); startAutoplay(); });
+    if(prevBtn) prevBtn.addEventListener('click', ()=>{ stopAutoplay(); prev(); startAutoplay(); });
+
+    // touch support on wrapper
+    let startX = 0, deltaX = 0, isDown=false;
+    wrapper.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.clientX; wrapper.style.scrollSnapType = 'none'; });
+    wrapper.addEventListener('pointermove', (e)=>{ if(!isDown) return; deltaX = e.clientX - startX; wrapper.scrollLeft -= deltaX; startX = e.clientX; });
+    wrapper.addEventListener('pointerup', ()=>{ isDown=false; wrapper.style.scrollSnapType = ''; // settle to nearest
+        // find nearest
+        const cards = getCardElements();
+        let nearest = 0; let minDist = Infinity;
+        const center = wrapper.scrollLeft + wrapper.clientWidth/2;
+        cards.forEach((c, i)=>{ const cCenter = c.offsetLeft + c.clientWidth/2; const d = Math.abs(center - cCenter); if(d<minDist){ minDist=d; nearest=i; } });
+        goTo(nearest);
+    });
+
+    // build on DOM ready
+    document.addEventListener('DOMContentLoaded', build);
+})();
 
 
     </script>
