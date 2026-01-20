@@ -31,12 +31,14 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #21006e 0%, #ffc1e3 100%);
-            display: none;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 10000;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
         .preloader-container.hidden {
@@ -372,6 +374,7 @@
             z-index: 10;
             width: 100%;
             padding: 0;
+            display: none;
         }
 
         section {
@@ -1565,10 +1568,83 @@ animation: heartGlow 2s ease-in-out infinite, heartPulse 1.5s ease-in-out infini
     opacity: 0.9;
 }
 
+/* Ready Screen */
+.ready-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #21006e 0%, #ffc1e3 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10002;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.ready-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.ready-content {
+    text-align: center;
+}
+
+.ready-question {
+    font-size: clamp(2em, 8vw, 3.5em);
+    color: white;
+    margin-bottom: 40px;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-weight: bold;
+}
+
+.ready-emoji {
+    font-size: 4em;
+    margin-bottom: 30px;
+    animation: float 2s ease-in-out infinite;
+}
+
+.ready-button {
+    background: linear-gradient(135deg, #ff6b9d 0%, #d4145a 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 50px;
+    font-size: clamp(1.1em, 3.5vw, 1.5em);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(212, 20, 90, 0.4);
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ready-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(212, 20, 90, 0.6);
+}
+
 
     </style>
 </head>
 <body>
+    <!-- Ready Screen -->
+    <div class="ready-container" id="readyContainer">
+        <div class="ready-content">
+            <div class="ready-emoji">🎁</div>
+            <div class="ready-question">Are you ready?</div>
+            <button class="ready-button" onclick="proceedFromReady()">Yes</button>
+        </div>
+    </div>
+
     <!-- Preloader -->
     <div class="preloader-container" id="preloaderContainer">
         <div class="preloader-heart">💕</div>
@@ -1831,30 +1907,63 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
 
     <script>
 
-        // Preloader - Auto start on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        // Music control - Initialize first
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        // Ready screen handler
+        function proceedFromReady() {
+            const readyContainer = document.getElementById('readyContainer');
             const preloaderContainer = document.getElementById('preloaderContainer');
-            if (preloaderContainer) {
-                preloaderContainer.style.display = 'flex';
+            const container = document.querySelector('.container');
+            
+            // Fade out ready screen
+            readyContainer.classList.add('hidden');
+            
+            // Show container after ready screen starts fading
+            setTimeout(() => {
+                container.style.display = 'block';
+                
+                // Hide preloader and start music after 3.8 seconds
                 setTimeout(() => {
                     preloaderContainer.classList.add('hidden');
-                    // Start music after preloader finishes
                     startMusic();
                 }, 3800);
-            }
-        });
+            }, 100);
+        }
 
         // Music control
         function startMusic() {
+            music.muted = true;
+            music.volume = 0.5;
+            
             music.play().then(() => {
-                isPlaying = true;
-                musicBtn.textContent = '🔊';
+                console.log("Music started playing (muted)");
+                // Unmute after short delay
+                setTimeout(() => {
+                    music.muted = false;
+                    isPlaying = true;
+                    musicBtn.textContent = '🔊';
+                }, 100);
             }).catch(() => {
-                // If autoplay is blocked, show muted icon
+                console.log("Autoplay blocked");
                 isPlaying = false;
                 musicBtn.textContent = '🔇';
             });
         }
+
+        // Unmute on first user interaction (backup)
+        function handleFirstInteraction() {
+            if (isPlaying && music.muted) {
+                music.muted = false;
+                musicBtn.textContent = '🔊';
+            }
+        }
+        
+        ['click', 'touchstart', 'keydown'].forEach(eventType => {
+            document.addEventListener(eventType, handleFirstInteraction, { once: true, passive: true });
+        });
 
         // Fade in sections
         const sections = document.querySelectorAll('section');
@@ -1902,11 +2011,7 @@ Happy Birthday. You are the most beautiful gift in my life. Your birthday isn't 
             birthdayObserver.observe(birthdayPhoto);
         }
 
-        // Music control - DEFAULT ON
-        const music = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
-        let isPlaying = false;
-
+        // Music button toggle
         musicBtn.addEventListener('click', () => {
             if (isPlaying) {
                 music.pause();
@@ -2298,6 +2403,7 @@ if (letterVideo) {
     letterVideo.addEventListener('pause', resumeMusicAfterLetterVideo);
     letterVideo.addEventListener('ended', resumeMusicAfterLetterVideo);
 }
+
     </script>
 </body>
 </html>
